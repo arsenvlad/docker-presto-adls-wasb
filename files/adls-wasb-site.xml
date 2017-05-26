@@ -1,0 +1,37 @@
+<configuration>
+        <property>
+                <name>fs.adl.impl</name>
+                <value>org.apache.hadoop.fs.adl.AdlFileSystem</value>
+        </property>
+
+        <property>
+                <name>fs.AbstractFileSystem.adl.impl</name>
+                <value>org.apache.hadoop.fs.adl.Adl</value>
+        </property>
+
+        <property>
+                <name>dfs.adls.oauth2.access.token.provider.type</name>
+                <value>ClientCredential</value>
+        </property>
+
+        <property>
+                <name>dfs.adls.oauth2.refresh.url</name>
+                <value>https://login.microsoftonline.com/YOUR_AZURE_AD_TENANT_ID/oauth2/token</value>
+        </property>
+
+        <property>
+                <name>dfs.adls.oauth2.client.id</name>
+                <value>YOUR_AZURE_SERVICE_PRINCIPAL_ID</value>
+        </property>
+
+        <property>
+                <name>dfs.adls.oauth2.credential</name>
+                <value>YOUR_AZURE_SERVICE_PRINCIPAL_PASSWORD</value>
+        </property>
+
+        <!-- This is where you configure Azure Blob Storage -->
+        <property>
+                <name>fs.azure.account.key.YOUR_AZURE_STORAGE_ACCOUNT_NAME.blob.core.windows.net</name>
+                <value>YOUR_AZURE_STORAGE_ACCOUNT_KEY</value>
+        </property>
+  </configuration>

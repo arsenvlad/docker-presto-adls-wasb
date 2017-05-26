@@ -1,0 +1,15 @@
+
+========================================================
+Presto Example with ADLS and WASB Docker Container
+========================================================
+
+
+1. Edit /opt/presto/etc/catalog/hive.properties to set the Hive Server metastore URL
+2. Edit /opt/presto/etc/catalog/adls-wasb-site.xml to configure the ADLS and WASB credentials
+3. Presto is configured on port 8089 which can be changed in /opt/presto/etc/config.properties file
+4. Start Presto /opt/presto/bin/launcher run > presto-server.log 2>&1 &
+
+========================================================
+
+
+
