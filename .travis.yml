@@ -1,0 +1,11 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker --version
+  - docker build -t presto-adls-wasb .
+  - docker run -it presto-adls-wasb
+  - docker ps -a
+
