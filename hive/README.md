@@ -1,5 +1,5 @@
 ### Build Hive docker container
-```docker build . -t hive```
+```docker build -t hive .```
 
 ### Run container and pass environment variables
 ```docker run --env-file ../env.conf.private -it hive```
