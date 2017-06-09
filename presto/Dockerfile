@@ -43,13 +43,13 @@ RUN cd $PRESTO_DIR/plugin/hive-hadoop2 && \
 
 ADD files /_build/
 
-RUN chmod 777 /_build/create-configs.sh && \
+RUN chmod +x /_build/create-configs.sh && sleep 1 && \
     /_build/create-configs.sh && \
     mv /_build/adls-wasb-site.xml $PRESTO_DIR/etc/catalog/ && \
+    mv /_build/presto-start.sh /etc/presto-start.sh && \
+    chmod +x /etc/presto-start.sh && sleep 1 && \
     mv /_build/motd.txt /etc/motd && \
     rm -rf /_build
-
-ADD files/presto-start.sh /etc/presto-start.sh
 
 RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' >> /etc/bash.bashrc
 

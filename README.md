@@ -8,7 +8,7 @@ Clone this repo
 
 Run Hive and Presto containers using config specified in *env.conf.private*
 
-```docker-compose up```
+```docker-compose up --build```
 
 In a separate terminal window, list currently running containers
 

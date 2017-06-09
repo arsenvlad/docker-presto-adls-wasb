@@ -28,5 +28,6 @@ RUN yum erase -y jdk && \
 EXPOSE 9083
 
 ADD files/metastore-start.sh /etc/metastore-start.sh
+RUN chmod +x /etc/metastore-start.sh && sleep 1
 
 CMD /etc/metastore-start.sh
