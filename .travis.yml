@@ -9,4 +9,6 @@ script:
   - docker build -t presto-adls-wasb .
   - cd ../hive
   - docker build -t hive-adls-wasb .
+  - docker images
+  - exit 0
 

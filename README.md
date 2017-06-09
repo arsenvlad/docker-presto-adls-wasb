@@ -54,22 +54,12 @@ List tables in the Hive default catalog
 
 ```show tables from hive.default;```
 
-Insert data into the table
-
-TODO: Fix inserts into WASB table which fail with this error
-
-```
-resto_1  | 2017-06-09T04:03:05.165Z    ERROR   SplitRunner-2-52        com.facebook.presto.execution.TaskExecutor      Error processing Split 20170609_040
-254_00002_q2ec5.1.0-16  (start = 1496980980835, wall = 4330 ms, cpu = 0 ms, calls = 1)
-presto_1  | java.lang.NoSuchMethodError: com.microsoft.azure.storage.blob.CloudBlob.startCopyFromBlob(Ljava/net/URI;Lcom/microsoft/azure/storage/AccessCond
-ition;Lcom/microsoft/azure/storage/AccessCondition;Lcom/microsoft/azure/storage/blob/BlobRequestOptions;Lcom/microsoft/azure/storage/OperationContext;)Ljav
-a/lang/String;
-presto_1  |     at org.apache.hadoop.fs.azure.StorageInterfaceImpl$CloudBlobWrapperImpl.startCopyFromBlob(StorageInterfaceImpl.java:399)
-presto_1  |     at org.apache.hadoop.fs.azure.AzureNativeFileSystemStore.rename(AzureNativeFileSystemStore.java:2449)
-```
+Insert data into the tables
 
 ```
 insert into hive.default.wasbtable1 (id, name) values (1,'1');
+insert into hive.default.wasbtable1 (id, name) select id, name from hive.default.wasbtable1 union all select id, name from hive.default.wasbtable1 union all select id, name from hive.default.wasbtable1;
+
 insert into hive.default.adltable1 (id, name) values (1,'1');
 insert into hive.default.adltable1 (id, name) select id, name from hive.default.adltable1 union all select id, name from hive.default.adltable1 union all select id, name from hive.default.adltable1;
 ```
