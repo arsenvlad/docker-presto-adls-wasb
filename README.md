@@ -25,9 +25,11 @@ In the Hive container bash session, open Hive CLI pointing to itself as an exter
 ```hive --hiveconf hive.metastore.uris=thrift://localhost:9083```
 
 Create table using Azure Storage Blobs (change the storage account name and container name to yours)
+
 ```create table wasbtable1 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable1';```
 
 Create table using Azure Data Lake Store (change the ADLS account name to yours)
+
 ```create table adltable1 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'adl://avdatalake1.azuredatalakestore.net/adltable1';```
 
 Confirm you can see the tables

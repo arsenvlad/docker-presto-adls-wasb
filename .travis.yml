@@ -7,6 +7,6 @@ before_install:
 script:
   - cd presto
   - docker build -t presto-adls-wasb .
-  - cd ..\hive
+  - cd ../hive
   - docker build -t hive-adls-wasb .
 
