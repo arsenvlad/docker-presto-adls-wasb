@@ -2,10 +2,11 @@ sudo: required
 
 services:
   - docker
-
 before_install:
   - docker --version
+script:
+  - cd presto
   - docker build -t presto-adls-wasb .
-  - docker run -it presto-adls-wasb
-  - docker ps -a
+  - cd ..\hive
+  - docker build -t hive-adls-wasb .
 

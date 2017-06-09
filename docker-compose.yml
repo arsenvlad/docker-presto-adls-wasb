@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  hive-adls-wasb:
+    build: hive
+    env_file:
+      - ./env.conf.private
+
+  presto-adls-wasb:
+    build: presto
+    env_file:
+      - ./env.conf.private
