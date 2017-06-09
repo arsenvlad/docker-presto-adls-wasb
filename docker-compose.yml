@@ -1,12 +1,14 @@
 version: "3"
 
 services:
-  hive-adls-wasb:
+  hive:
     build: hive
     env_file:
       - ./env.conf.private
 
-  presto-adls-wasb:
+  presto:
     build: presto
+    depends_on:
+      - hive
     env_file:
       - ./env.conf.private

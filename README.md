@@ -1,45 +1,85 @@
-# Example Dockerfile for single node Presto with Azure Data Lake Store (ADLS) and Azure Storage Blobs (WASB)
+# Example of a single node Presto with Azure Data Lake Store (ADLS) and Azure Storage Blobs (WASB)
+
+### Start local Hive metastore and Presto containers
+
+Clone this repo
+
+```git clone https://github.com/arsenvlad/docker-presto-adls-wasb```
+
+Run Hive and Presto containers using config specified in *env.conf.private*
+
+```docker-compose up```
+
+In a separate terminal window, list currently running containers
+
+```docker ps```
+
+### Connect to Hive bash
+
+In a separate terminal window, open interactive tty bash on the Hive container
+
+```docker exec -it dockerprestoadlswasb_hive_1 bash```
+
+In the Hive container bash session, open Hive CLI pointing to itself as an external metastore. If you get an error saying "Name node is in safe mode", wait for a few minutes and try again.
+
+```hive --hiveconf hive.metastore.uris=thrift://localhost:9083```
+
+Create table using Azure Storage Blobs (change the storage account name and container name to yours)
+```create table wasbtable1 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable1';```
+
+Create table using Azure Data Lake Store (change the ADLS account name to yours)
+```create table adltable1 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'adl://avdatalake1.azuredatalakestore.net/adltable1';```
+
+Confirm you can see the tables
+```show tables;```
+
+### Connect to Presto bash
+In a separate terminal window, open interactive tty bash on the Presto container
+
+```docker exec -it dockerprestoadlswasb_presto_1 bash```
+
+Presto is configured with a single node with Hive connector as described in [/etc/motd](files/motd.txt)
+
+Use Presto CLI to connect to the running Presto server
+
+```/opt/presto/presto --server http://localhost:8080```
+
+List shemas in Hive catalog
+
+```show schemas from hive;```
+
+List tables in the Hive default catalog
+
+```show tables from hive.default;```
+
+Insert data into the table
+
+TODO: Fix inserts into WASB table which fail with this error
+
+```
+resto_1  | 2017-06-09T04:03:05.165Z    ERROR   SplitRunner-2-52        com.facebook.presto.execution.TaskExecutor      Error processing Split 20170609_040
+254_00002_q2ec5.1.0-16  (start = 1496980980835, wall = 4330 ms, cpu = 0 ms, calls = 1)
+presto_1  | java.lang.NoSuchMethodError: com.microsoft.azure.storage.blob.CloudBlob.startCopyFromBlob(Ljava/net/URI;Lcom/microsoft/azure/storage/AccessCond
+ition;Lcom/microsoft/azure/storage/AccessCondition;Lcom/microsoft/azure/storage/blob/BlobRequestOptions;Lcom/microsoft/azure/storage/OperationContext;)Ljav
+a/lang/String;
+presto_1  |     at org.apache.hadoop.fs.azure.StorageInterfaceImpl$CloudBlobWrapperImpl.startCopyFromBlob(StorageInterfaceImpl.java:399)
+presto_1  |     at org.apache.hadoop.fs.azure.AzureNativeFileSystemStore.rename(AzureNativeFileSystemStore.java:2449)
+```
+
+```
+insert into hive.default.wasbtable1 (id, name) values (1,'1');
+insert into hive.default.adltable1 (id, name) values (1,'1');
+insert into hive.default.adltable1 (id, name) select id, name from hive.default.adltable1 union all select id, name from hive.default.adltable1 union all select id, name from hive.default.adltable1;
+```
+
+Select from the table
+
+```select * from hive.default.adltable1;```
+
+### When using with HDInsight
 
 NOTE: To access Azure HDInsight Hive Thrift Service your Docker host VM must be within the same network.
 
 To find the URLs of the HDInsight Hive Thrift Service (i.e. hive.metastore.uri), SSH into the HDInsight cluster and run this grep command:
 
 ```echo $(grep -n1 "hive.metastore.uri" /etc/hive/conf/hive-site.xml | grep -o "<value>.*/value>" | sed 's:<value>::g' | sed 's:</value>::g')```
-
-Clone this repo
-
-```git clone https://github.com/arsenvlad/docker-presto-adls-wasb```
-
-Build Docker image
-
-```docker build -t presto-adls-wasb .```
-
-Run Docker container
-
-```docker run -it presto-adls-wasb```
-
-Once inside the docker image, follow the instructions shown in [/etc/motd](files/motd.txt) to configure Presto Hive connector
-
-### Start standalone Hive metastore
-* Enter values into env.conf.private file
-
-* Start the Hive Metastore (using embedded Derby)
-```docker-compose up --build hive-adls-wasb``` 
-
-* Open bash in this container
-```docker exec -it CONTAINER_ID bash```
-
-* Open Hive CLI and point it to itself of metastore
-```hive --hiveconf hive.metastore.uris=thrift://localhost:9083```
-
-* Execute simple command to see if it works
-```show tables```
-
-* Create table using Azure Storage Blobs
-```create external table wasbtable1 (name varchar(255)) location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable1';```
-
-* Create table using Azure Data Lake Store
-```create external table adltable4 (name varchar(255)) location 'adl://avdatalake1.azuredatalakestore.net/adltable1';```
-
-* Confirm you can see the tables
-```show tables;```

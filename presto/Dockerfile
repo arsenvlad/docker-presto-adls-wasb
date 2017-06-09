@@ -39,20 +39,23 @@ RUN cd $PRESTO_DIR/plugin/hive-hadoop2 \
     && wget http://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure-datalake/3.0.0-alpha2/hadoop-azure-datalake-3.0.0-alpha2.jar -O hadoop-azure-datalake-3.0.0-alpha2.jar \
     && wget http://repo1.maven.org/maven2/org/apache/hadoop/hadoop-azure/2.7.3/hadoop-azure-2.7.3.jar -O hadoop-azure-2.7.3.jar
 
+RUN apt-get install -y less
+
 ADD files /_build/
 
-RUN chmod 777 /_build/create-configs.sh
+RUN chmod 777 /_build/create-configs.sh && \
+    /_build/create-configs.sh && \
+    mv /_build/adls-wasb-site.xml $PRESTO_DIR/etc/catalog/ && \
+    mv /_build/motd.txt /etc/motd && \
+    rm -rf /_build
 
-RUN /_build/create-configs.sh \
-    && mv /_build/adls-wasb-site.xml $PRESTO_DIR/etc/catalog/ \
-    && mv /_build/motd.txt /etc/motd \
-    && rm -rf /_build
+ADD files/presto-start.sh /etc/presto-start.sh
 
 RUN echo '[ ! -z "$TERM" -a -r /etc/motd ] && cat /etc/motd' >> /etc/bash.bashrc
 
 WORKDIR $PRESTO_DIR
 
-CMD ["bash"]
+CMD /etc/presto-start.sh
 
 
 

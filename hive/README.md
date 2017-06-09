@@ -11,12 +11,13 @@
 ```hive --hiveconf hive.metastore.uris=thrift://localhost:9083```
 
 ### Create table using Azure Storage Blobs
-```create table wasbtable1 (name varchar(255)) location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable1';```
-```create table wasbtable2 (name varchar(255)) location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable2';```
-```create table wasbtable3 (name varchar(255)) location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable3';```
-```create external table wasbtable4 (name varchar(255)) location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable4';```
+```create table wasbtable100 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable100';```
+
+```create external table wasbtable_ext100 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'wasb://test-hive@avdatarepo1.blob.core.windows.net/wasbtable_ext100';```
 
 ### Create table using Azure Data Lake Store
-```create external table adltable4 (name varchar(255)) location 'adl://avdatalake1.azuredatalakestore.net/adltable1';```
+```create table adltable100 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'adl://avdatalake1.azuredatalakestore.net/adltable100';```
+
+```create external table adltable100 (id int, name varchar(255)) row format delimited fields terminated by ',' stored as textfile location 'adl://avdatalake1.azuredatalakestore.net/adltable100';```
 
 
