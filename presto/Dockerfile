@@ -5,7 +5,7 @@ FROM openjdk:8
 ENV DEBIAN_FRONTEND noninteractive
 
 # Environment variables
-ENV PRESTO_VERSION 0.167-t.0.4
+ENV PRESTO_VERSION 0.178
 ENV PRESTO_DIR /opt/presto
 ENV PRESTO_DATA_DIR /opt/presto/data
 
@@ -13,15 +13,15 @@ ENV PRESTO_DATA_DIR /opt/presto/data
 RUN apt-get update && \ 
     apt-get install -y python uuid-runtime vim less
 
-# Download Presto Server
-RUN curl -s -O http://teradata-presto.s3.amazonaws.com/presto/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
+# Download Presto
+RUN curl -s -O https://repo1.maven.org/maven2/com/facebook/presto/presto-server/$PRESTO_VERSION/presto-server-$PRESTO_VERSION.tar.gz && \
     tar xvf presto-server-$PRESTO_VERSION.tar.gz
 
 # Download Presto CLI
-RUN curl -s -O http://teradata-presto.s3.amazonaws.com/presto/$PRESTO_VERSION/presto-cli-$PRESTO_VERSION-executable.jar && \
+RUN curl -s -O https://repo1.maven.org/maven2/com/facebook/presto/presto-cli/$PRESTO_VERSION/presto-cli-$PRESTO_VERSION-executable.jar && \
     mv presto-cli-$PRESTO_VERSION-executable.jar presto && \
     chmod +x presto      
-
+    
 # Create directories
 RUN mkdir -p $PRESTO_DIR && \
     mkdir -p $PRESTO_DATA_DIR && \

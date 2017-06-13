@@ -1,6 +1,8 @@
 # Example of a single node Presto with Azure Data Lake Store (ADLS) and Azure Storage Blobs (WASB)
 
-### Start local Hive metastore and Presto containers
+[![Presto with ADLS and WASB](https://img.youtube.com/vi/hflThIJdkrI/0.jpg)](https://youtu.be/hflThIJdkrI)
+
+# Start local Hive metastore and Presto containers
 
 Clone this repo
 
@@ -14,7 +16,7 @@ In a separate terminal window, list currently running containers
 
 ```docker ps```
 
-### Connect to Hive bash
+# Connect to Hive bash
 
 In a separate terminal window, open interactive tty bash on the Hive container
 
@@ -35,7 +37,8 @@ Create table using Azure Data Lake Store (change the ADLS account name to yours)
 Confirm you can see the tables
 ```show tables;```
 
-### Connect to Presto bash
+## Connect to Presto bash
+
 In a separate terminal window, open interactive tty bash on the Presto container
 
 ```docker exec -it dockerprestoadlswasb_presto_1 bash```
@@ -68,10 +71,14 @@ Select from the table
 
 ```select * from hive.default.adltable1;```
 
-### When using with HDInsight
+## When using with HDInsight
 
 NOTE: To access Azure HDInsight Hive Thrift Service your Docker host VM must be within the same network.
 
 To find the URLs of the HDInsight Hive Thrift Service (i.e. hive.metastore.uri), SSH into the HDInsight cluster and run this grep command:
 
 ```echo $(grep -n1 "hive.metastore.uri" /etc/hive/conf/hive-site.xml | grep -o "<value>.*/value>" | sed 's:<value>::g' | sed 's:</value>::g')```
+
+## Presto with Azure Data Services
+
+[Azure CosmosDB with MongoDB API, Azure SQL Database, Azure MySQL, Azure PostgreSQL](azure-data-services.md)
