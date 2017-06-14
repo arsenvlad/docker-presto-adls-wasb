@@ -1,8 +1,9 @@
-# Example of a single node Presto with Azure Data Lake Store (ADLS) and Azure Storage Blobs (WASB)
+# Example of a single node Presto with Azure Data Lake Store (ADLS) and Azure Blob Storage (WASB)
 
-[![Presto with ADLS and WASB](https://img.youtube.com/vi/hflThIJdkrI/0.jpg)](https://youtu.be/hflThIJdkrI)
+Click to watch video
+[![Presto with ADLS and WASB](images/presto-adls-wasb-play.png)](https://youtu.be/hflThIJdkrI)
 
-# Start local Hive metastore and Presto containers
+## Start local Hive metastore and Presto containers
 
 Clone this repo
 
@@ -16,7 +17,7 @@ In a separate terminal window, list currently running containers
 
 ```docker ps```
 
-# Connect to Hive bash
+## Connect to Hive bash
 
 In a separate terminal window, open interactive tty bash on the Hive container
 
