@@ -1,5 +1,7 @@
 # Configuring Presto with Azure Data Services
 
+[![Azure CosmosDB with MongoDB API, Azure SQL Database, Azure MySQL, Azure PostgreSQL](images/presto-azure-data-services-play.png)](https://youtu.be/XDfCK6Ejz-A)
+
 ## Azure CosmosDB with MongoDB API
 
 Create sample data using mongo.exe command line client
@@ -37,7 +39,7 @@ select * from users;
 Create sample data using mysql command line client
 
 ```
-mysql -h YOURAZUREMYSQLACCOUNT.mysql.database.azure.com -D test -u USERNAME -p --ssl-mode Preferred
+mysql -h YOURAZUREMYSQLACCOUNT.mysql.database.azure.com -D DATABASE -u USERNAME -p --ssl-mode Preferred
 ```
 
 ```
@@ -54,7 +56,7 @@ select * from tickets;
 Create sample data using pgsql command line client
 
 ```
-psql -h YOURAZUREPOSTGRESQLACCOUNT.postgres.database.azure.com -d postgres -U USERNAME
+psql -h YOURAZUREPOSTGRESQLACCOUNT.postgres.database.azure.com -d postgres -U USERNAME "sslmode=require dbname=DATABASE"
 ```
 
 ```
