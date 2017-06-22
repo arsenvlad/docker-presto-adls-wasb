@@ -1,6 +1,6 @@
-# Configuring Presto with Azure Data Services
-
 [![Azure CosmosDB with MongoDB API, Azure SQL Database, Azure MySQL, Azure PostgreSQL](images/presto-azure-data-services-play.png)](https://youtu.be/XDfCK6Ejz-A)
+
+# Configuring Presto with Azure Data Services
 
 ## Azure CosmosDB with MongoDB API
 

@@ -82,5 +82,7 @@ To find the URLs of the HDInsight Hive Thrift Service (i.e. hive.metastore.uri),
 
 ## Presto with Azure Data Services
 
-[![Azure CosmosDB with MongoDB API, Azure SQL Database, Azure MySQL, Azure PostgreSQL](images/presto-azure-data-services-play.png)](azure-data-services.md)
+See [azure-data-services.md](azure-data-services.md) for an example showing how to configure Presto connectors to Azure Data Services to query and join data from Azure CosmosDB (using MongoDB API), Azure SQL Database, Azure MySQL, Azure PostgreSQL and store the joined results in Azure Blob Storage.
+
+[![Azure CosmosDB with MongoDB API, Azure SQL Database, Azure MySQL, Azure PostgreSQL](images/presto-azure-data-services-play.png)](https://youtu.be/XDfCK6Ejz-A)
 
