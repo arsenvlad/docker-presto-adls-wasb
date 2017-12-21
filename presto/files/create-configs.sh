@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # Node properties
+# "__uuidgen__" is a placeholder to be replaced when container starts. 
+# Using "node.id=(uuidgen)"" here would cause duplicate node ID problem in multi-node setup
 cat > $PRESTO_DIR/etc/node.properties <<EOF
 node.environment=production
-node.id=`uuidgen`
+node.id=__uuidgen__
 node.data-dir=$PRESTO_DATA_DIR
 EOF
 

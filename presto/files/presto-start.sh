@@ -12,6 +12,9 @@ sed -i -e "s#ADLS_CLIENT_SECRET#${ADLS_CLIENT_SECRET}#g" $config
 sed -i -e "s/AZURE_STORAGE_ACCOUNT_NAME/${AZURE_STORAGE_ACCOUNT_NAME}/g" $config
 sed -i -e "s#AZURE_STORAGE_ACCOUNT_KEY#${AZURE_STORAGE_ACCOUNT_KEY}#g" $config
 
+# generate unique node.id
+sed -i -e "s/__uuidgen__/$(uuidgen)/g" $PRESTO_DIR/etc/node.properties
+
 # Create additional catalogs...
 
 # Azure CosmosDB with MongoAPI
