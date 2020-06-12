@@ -20,10 +20,13 @@ RUN cd $HIVE_HOME/lib && \
 
 # Uninstall JDK 1.7 that was installed in the base image
 # Install JDK 1.8 since Azure Data Lake Store JARs are compiled using JDK 1.8
-RUN yum erase -y jdk && \
-	curl -s -LO 'http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie' && \
-	rpm -i jdk-8u131-linux-x64.rpm && \
-	rm jdk-8u131-linux-x64.rpm
+RUN yum erase -y jdk 
+
+RUN yum -y install wget
+
+RUN  wget -c --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm && \
+        rpm -i jdk-8u131-linux-x64.rpm && \
+        rm jdk-8u131-linux-x64.rpm
 
 EXPOSE 9083
 
